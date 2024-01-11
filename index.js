@@ -1,22 +1,7 @@
 const fs = require('fs');
 const http = require('http');
 const url = require('url');
-
-function replaceTemplate(temp, product) {
-  let output = temp
-    .replaceAll('{%PRODUCTNAME%}', product.productName)
-    .replaceAll('{%IMAGE%}', product.image)
-    .replaceAll('{%PRICE%}', product.price)
-    .replaceAll('{%FROM%}', product.from)
-    .replaceAll('{%NUTRIENTS%}', product.nutrients)
-    .replaceAll('{%QUANTITY%}', product.quantity)
-    .replaceAll('{%DESCRIPTION%}', product.description)
-    .replaceAll('{%ID%}', product.id);
-
-  if (!product.organic) output = output.replaceAll('{%NOT_ORGANIC%}', 'not-organic');
-
-  return output;
-}
+const replaceTemplate = require('./modules/replaceTemplate');
 
 const data = fs.readFileSync(`${ __dirname }/dev-data/data.json`, 'utf-8');
 const dataObj = JSON.parse(data);
